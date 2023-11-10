@@ -1,14 +1,8 @@
+# Exercises
 
-# CEVA Test
+## NodeJs
 
-# Name: Jose Miguel Chaves Ojeda
-
-  
-## Exercises
-
-### NodeJs
-
-####  Exercise 1: Is there a problem? (1 points)
+###  Exercise 1: Is there a problem? (1 points)
 
 ```javascript
 // Call web service and return count user, (got is library to call url)
@@ -29,7 +23,7 @@ In order to make this piece of code work we need to await the result: [Exercise 
 
   
 
-#### Exercise 2: Is there a problem? (2 points)
+### Exercise 2: Is there a problem? (2 points)
 ```javascript
 async function getTotalVehicles() {
 	return await got.get('https://my-webservice.moveecar.com/vehicles/total');
@@ -53,7 +47,7 @@ Yes, again we have some problems with the usage of async/await, in this case the
 In order to make this piece of code work as expected, we need to convert `getTotalVehicles` into an async/await function: [Exercise 2](https://github.com/josemichaves/test_ceva/blob/master/node/ex2/index.js)
 
 
-#### Exercise 3: Unit test (2 points)
+### Exercise 3: Unit test (2 points)
 
 Write unit tests in jest for the function below in typescript
 ```  typescript
