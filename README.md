@@ -20,137 +20,45 @@
   
 
 ```javascript
-
-  
-
 // Call web service and return count user, (got is library to call url)
-
-  
-
-async  function  getCountUsers() {
-
-  
-
-return {
-
-  
-
-total: await  got.get('https://my-webservice.moveecar.com/users/count')
-
-  
-
-};
-
-  
-
+async function getCountUsers() {
+    return {
+        total: await got.get('https://my-webservice.moveecar.com/users/count')
+        
+    };
 }
-
-  
 
 // Add total from service with 20
-
-  
-
-async  function  computeResult() {
-
-  
-
-const  result  =  getCountUsers();
-
-  
-
-return  result.total  +  20;
-
-  
-
+async function computeResult() {
+    const result = getCountUsers();
+    return result.total + 20;
 }
 
-  
-
 ```
-
-  
-
 Yes, there’s a problem with this piece of code, the problem resides when we call `getCountUsers` to get the users count, we’re not awaiting the result of the promise, thus not resolving it, it will return an undefined.
-
-  
-
-  
 
 In order to make this piece of code work we need to await the result: [Exercise 1](https://github.com/josemichaves/test_ceva/blob/master/node/ex1/index.js)
 
-  
-
-  
-
-  
-
 ### Exercise 2: Is there a problem? (2 points)
 
-  
-
 ```javascript
-
-  
-
-async  function  getTotalVehicles() {
-
-  
-
-return  await  got.get('https://my-webservice.moveecar.com/vehicles/total');
-
-  
-
+async function getTotalVehicles() {
+    return await got.get('https://my-webservice.moveecar.com/vehicles/total');
 }
 
-  
-
-  
-
-function  getPlurial() {
-
-  
-
-let  total;
-
-  
-
-getTotalVehicles().then(r  =>  total  =  r);
-
-  
-
-if(total  <=  0) {
-
-  
-
-return  'none';
-
-  
-
+function getPlurial() {
+    let total;
+    getTotalVehicles().then(r => total = r);
+    
+    if (total <= 0) {
+        return 'none';
+    }
+    
+    if (total <= 10) {
+        return 'few';
+    }
+    return 'many';
 }
-
-  
-
-if(total  <=  10) {
-
-  
-
-return  'few';
-
-  
-
-}
-
-  
-
-return  'many';
-
-  
-
-}
-
-  
-
 ```
 
   
@@ -180,75 +88,25 @@ Write unit tests in jest for the function below in typescript
   
 
 ``` typescript
-
-  
-
 import {
+    expect,
+    test
+} from '@jest/globals';
 
-  
-
-expect,
-
-  
-
-test
-
-  
-
-} from  '@jest/globals';
-
-  
-
-  
-
-function  getCapitalizeFirstWord(name: string): string {
-
-  
-
-if(name  ==  null) {
-
-  
-
-throw  new  Error('Failed to capitalize first word with null');
-
-  
-
+function getCapitalizeFirstWord(name: string): string {
+    
+    if (name == null) {
+        throw new Error('Failed to capitalize first word with null');
+    }
+    
+    if (!name) {
+        return name;
+    }
+    return name.split(' ').map(n => n.length > 1 ? (n.substring(0, 1).toUpperCase() + n.substring(1).toLowerCase()) : n).join(' ');
 }
-
-  
-
-if(!name) {
-
-  
-
-return  name;
-
-  
-
-}
-
-  
-
-return  name.split(' ').map(n  =>  n.length  >  1  ? (n.substring(0, 1).toUpperCase() +  n.substring(1).toLowerCase()) :  n).join(' ');
-
-  
-
-}
-
-  
-
-test('1. test', async  function() {
-
-  
-
-...
-
-  
-
+test('1. test', async function () {
+    ..
 });
-
-  
-
 ```
 
   
