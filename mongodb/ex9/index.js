@@ -20,18 +20,18 @@ const client = new MongoClient(uri, {
 });
 
 async function run() {
-
+    
     await seedDb().catch(console.dir)
-
+    
     try {
-        // Connect to db
+        // Connect to client
         await client.connect();
-
+        
         // Select collection
         const collection = client.db('ex9').collection('users');
-
+        
         const result = await collection.aggregate([
-
+            
             {
                 $unwind: '$roles' // Unwind roles, create a document for each role user has
             },
@@ -50,16 +50,17 @@ async function run() {
                 }
             }
         ]).toArray()
-
+        
         console.log(result)
-
-
+        
+        
     } finally {
-
+        
         await client.close()
-
+        
         console.log('Operation complete :)')
     }
 }
 
+// Run the code
 run().catch(console.dir)

@@ -1,28 +1,66 @@
+require("dotenv").config()
+const {
+    MongoClient,
+    ServerApiVersion
+} = require('mongodb');
+const {
+    seedDb
+} = require("./seeders/usersSeeder");
 
-require('dotenv').config()
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = process.env.MONGODB_URI;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const uri = process.env.MONGODB_URI
+
+// Create client
 const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    }
 });
 
-async function run() {
-  try {
+async function run(param = "josemi") {
     
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-
-    const result = await db.collections('users').find()
-
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
+    await seedDb().catch(console.dir)
+    
+    try {
+        
+        // Connect to client
+        await client.connect();
+        
+        // Select collection
+        const collection = client.db('ex8').collection('users');
+        
+        const date = new Date()
+        
+        const result = await collection.find({
+            $or: [{
+                    email: param, // Exact match
+                    first_name: {
+                        $regex: '^' + param,
+                        $options: "i"
+                    }, // Use regex to check starts with
+                    last_name: {
+                        $regex: '^' + param,
+                        $options: "i"
+                    }
+                },
+                {
+                    last_connection_date: {
+                        $lte: date.toISOString(date.setMonth(date.getMonth() - 6)) // Last connection date should be less than today minus 6 months
+                    }
+                }
+            ]
+        }).toArray()
+        
+        console.log(result)
+    } finally {
+        
+        await client.close()
+        
+        console.log('Operation complete :)')
+    }
 }
-run().catch(console.dir);
+
+// Run the code
+run().catch(console.dir())

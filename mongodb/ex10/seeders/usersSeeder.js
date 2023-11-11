@@ -18,24 +18,24 @@ const client = new MongoClient(uri, {
 });
 
 module.exports.seedDb = async function seedDb() {
-
+    
     try {
-        // Connect to db
+        // Connect to client
         await client.connect();
-
+        
         // Select collection
         const collection = client.db('ex10').collection('users');
-
+        
         // Drop existing collection to have clean data to work
         await collection.drop();
-
+        
         // Initialize empty array to store roles
         let roles = [];
-
+        
         for (let i = 0; i < 2; i++) {
-            roles.push(faker.lorem.word())
+            roles.push([Math.random() < 0.5 ? 'admin' : 'user'])
         }
-
+        
         // Insert document, with specified ID
         await collection.insertOne({
             _id: "5cd96d3ed5d3e20029627d4a",
@@ -50,10 +50,9 @@ module.exports.seedDb = async function seedDb() {
             }
         })
     } finally {
-
+        
         await client.close()
-
+        
         console.log('Seeding complete :)')
     }
 }
-
