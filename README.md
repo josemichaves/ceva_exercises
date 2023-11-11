@@ -114,19 +114,9 @@ test('1. test', async function () {
 There's the unit tests: [Exercise 3](https://github.com/josemichaves/test_ceva/blob/master/node/ex3/__tests__/index.spec.ts)
 
   
+*Note: Function was not working as expected with single-letter word, I’ve fixed it, it was a matter of when we check the length of the word, we should check if the length is 1 or equal, and then will work.*
 
   
-
-*Note:
-
-  
-
-Function was not working as expected with single-letter word, I’ve fixed it, it was a matter of when we check the length of the word, we should check if the length is 1 or equal, and then will work.*
-
-  
-
-  
-
 Before:
 
   
