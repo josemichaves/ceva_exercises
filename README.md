@@ -6,7 +6,6 @@
 
 ```javascript
 // Call web service and return count user, (got is library to call url)
-
 async function getCountUsers() {
   return {
     total: await got.get("https://my-webservice.moveecar.com/users/count"),
@@ -59,7 +58,6 @@ Write unit tests in jest for the function below in typescript
 
 ```typescript
 import {
-
     expect,
     test
 } from '@jest/globals';
@@ -101,7 +99,6 @@ return name
       ? n.substring(0, 1).toUpperCase() + n.substring(1).toLowerCase()
       : n
   )
-
   .join(" ");
 ```
 
@@ -202,7 +199,55 @@ The main performance problem of this component is that getCapitalizeFirstWord` i
 
 We can use the observable `map` to take an observable, in this case the users array, and then in every render, we check if we have available this data in the map, if we have it, we simply return this data, if not, we execute the function to capitalize the names, and then store it on the map.
 
-[Exercise 6](https://github.com/josemichaves/test_ceva/blob/master/angular/ex5/src/app/app-users/app-users.component.ts)
+[Exercise 5](https://github.com/josemichaves/test_ceva/blob/master/angular/ex5/src/app/app-users/app-users.component.ts)
+
+## Exercice 6: Forms (8 points)
+
+Complete and modify AppUserForm class to use Angular Reactive Forms. Add a button to submit.
+The form should return data in this format
+
+```json
+{
+  email: string; // mandatory, must be a email
+  name: string; // mandatory, max 128 characters
+  birthday ? : Date; // Not mandatory, must be less than today
+  address: { // mandatory
+      zip: number; // mandatory
+      city: string; // mandatory, must contains only alpha uppercase and lower and space
+};
+```
+
+```typescript
+}
+@Component({
+    selector: 'app-user-form',
+    template: `
+<form>
+<input type="text" placeholder="email">
+<input type="text" placeholder="name">
+<input type="date" placeholder="birthday">
+<input type="number" placeholder="zip">
+<input type="text" placeholder="city">
+</form>
+`
+})
+export class AppUserForm {
+    @Output()
+    event = new EventEmitter < {
+        email: string;name: string;birthday: Date;address: {
+            zip: number;city: string;
+        };
+    } > ;
+    constructor(
+        private formBuilder: FormBuilder
+    ) {}
+    doSubmit(): void {
+        this.event.emit(...);
+    }
+}
+```
+
+[Exercise 6](https://github.com/josemichaves/test_ceva/blob/master/angular/ex6/src/app/app-user-form/app-user-form.component.ts)
 
 ## CSS & Bootstrap
 
