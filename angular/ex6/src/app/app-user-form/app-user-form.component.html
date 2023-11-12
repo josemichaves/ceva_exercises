@@ -1,0 +1,52 @@
+<form [formGroup]="userForm" (submit)="doSubmit()" class="m-5">
+  <div class="form-group">
+    <label for="email" type="text">Email:</label>
+    <input
+      type="text"
+      placeholder="email"
+      formControlName="email"
+      class="form-control"
+      placeholder="Enter email"
+    />
+
+    <label for="name" type="text">Name:</label>
+    <input
+      type="text"
+      placeholder="name"
+      formControlName="name"
+      class="form-control"
+      placeholder="Enter name"
+    />
+
+    <label for="birthday" type="date">Birthday:</label>
+    <input
+      type="date"
+      placeholder="birthday"
+      formControlName="birthday"
+      class="form-control"
+      placeholder="Enter birthday"
+    />
+
+    <div formGroupName="address">
+      <label for="zip" type="text">Zip:</label>
+      <input
+        type="number"
+        placeholder="zip"
+        formControlName="zip"
+        class="form-control"
+        placeholder="Enter zip code"
+      />
+
+      <label for="city" type="text">City:</label>
+      <input
+        type="text"
+        placeholder="city"
+        formControlName="city"
+        class="form-control"
+        placeholder="Enter city"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+  </div>
+</form>
