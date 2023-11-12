@@ -6,6 +6,7 @@
 
 ```javascript
 // Call web service and return count user, (got is library to call url)
+
 async function getCountUsers() {
   return {
     total: await got.get("https://my-webservice.moveecar.com/users/count"),
@@ -13,8 +14,10 @@ async function getCountUsers() {
 }
 
 // Add total from service with 20
+
 async function computeResult() {
   const result = getCountUsers();
+
   return result.total + 20;
 }
 ```
@@ -32,6 +35,7 @@ async function getTotalVehicles() {
 
 function getPlurial() {
   let total;
+
   getTotalVehicles().then((r) => (total = r));
 
   if (total <= 0) {
@@ -41,6 +45,7 @@ function getPlurial() {
   if (total <= 10) {
     return "few";
   }
+
   return "many";
 }
 ```
@@ -54,30 +59,80 @@ In order to make this piece of code work as expected, we need to convert `getTot
 Write unit tests in jest for the function below in typescript
 
 ```typescript
+
 import {
-    expect,
-    test
-} from '@jest/globals';
 
-function getCapitalizeFirstWord(name: string): string {
 
-    if (name == null) {
-        throw new Error('Failed to capitalize first word with null');
-    }
 
-    if (!name) {
-        return name;
-    }
-    return name.split(' ').map(n => n.length > 1 ? (n.substring(0, 1).toUpperCase() + n.substring(1).toLowerCase()) : n).join(' ');
+expect,
+
+
+
+test
+
+
+
+} from  '@jest/globals';
+
+
+
+
+
+function  getCapitalizeFirstWord(name: string): string {
+
+
+
+if(name  ==  null) {
+
+
+
+throw  new  Error('Failed to capitalize first word with null');
+
+
+
 }
-test('1. test', async function () {
-    ..
+
+
+
+if(!name) {
+
+
+
+return  name;
+
+
+
+}
+
+
+
+return  name.split(' ').map(n  =>  n.length  >  1  ? (n.substring(0, 1).toUpperCase() +  n.substring(1).toLowerCase()) :  n).join(' ');
+
+
+
+}
+
+
+
+test('1. test', async  function() {
+
+
+
+...
+
+
+
 });
+
+
+
 ```
 
 There's the unit tests: [Exercise 3](https://github.com/josemichaves/test_ceva/blob/master/node/ex3/__tests__/index.spec.ts)
 
-_Note: Function was not working as expected with single-letter word, I’ve fixed it, it was a matter of when we check the length of the word, we should check if the length is 1 or equal, and then will work._
+\*Note:
+
+Function was not working as expected with single-letter word, I’ve fixed it, it was a matter of when we check the length of the word, we should check if the length is 1 or equal, and then will work.\*
 
 Before:
 
@@ -105,9 +160,54 @@ return name
   .join(" ");
 ```
 
+## Angular
+
+### Exercise 4
+
+```typescript
+@Component({
+  selector: "app-users",
+  template: `
+    <input
+      type="text"
+      [(ngModel)]="query"
+      (ngModelChange)="querySubject.next($event)"
+    />
+    <div *ngFor="let user of users">
+      {{ user.email }}
+    </div>
+  `,
+})
+export class AppUsers implements OnInit {
+  query = "";
+  querySubject = new Subject<string>();
+  users: { email: string }[] = [];
+  constructor(private userService: UserService) {}
+  ngOnInit(): void {
+    concat(of(this.query), this.querySubject.asObservable())
+      .pipe(
+        concatMap((q) => timer(0, 60000).pipe(this.userService.findUsers(q)))
+      )
+      .subscribe({
+        next: (res) => (this.users = res),
+      });
+  }
+}
+```
+
+Yes, there's a problem, the concat method will not work as expected. In this case we're using `pipe()`to combine two observables `of(this.query)` and `this.querySubject.asObservable()`. The `concat()` operator emits the values from the first observable `of(this.query)` in sequence, and then the second Observable in sequence again.
+
+But in this case we only need the most recent value of `querySubject` Observable, because every time a input field changes, this Observable will emit, so there's no point in checkin the `this.query`.
+
+To improve this we can use `distinctUnitlChanged()` operator before the `concatMap` operator. This operator will emit the first value from the observable, and the subsequent values will be emitted if they've changed.
+
+Therefore, every 60 seconds we'll emit the value of the Observable, except if the input value changes, in this case the new value will be emitted iinmediately.
+
+[Exercice 4](https://github.com/josemichaves/test_ceva/blob/master/angular/ex4/src/app/app-users/app-users.component.ts)
+
 ## CSS & Bootstrap
 
-### Exercice 7: Card (5 points)
+### Exercise 7: Card (5 points)
 
 Recreate this card.
 
