@@ -48,7 +48,7 @@ function getPlurial() {
 }
 ```
 
-Yes, again we have some problems with the usage of async/await, in this case the main problem is that in the function `getPlurial` the result is returned immediately, without waiting for `getTotalVehicles` to resolve, which makes ` r`` not having a value, and returning always  `many` as the value will be undefined, and undefined is not a number, so neither the if will be evaluated.
+Yes, again we have some problems with the usage of async/await, in this case the main problem is that in the function `getPlurial` the result is returned immediately, without waiting for `getTotalVehicles` to resolve, which makes `r` not having a value, and returning always `many` as the value will be undefined, and undefined is not a number, so neither the if will be evaluated.
 
 In order to make this piece of code work as expected, we need to convert `getTotalVehicles` into an async/await function: [Exercise 2](https://github.com/josemichaves/test_ceva/blob/master/node/ex2/index.js)
 
