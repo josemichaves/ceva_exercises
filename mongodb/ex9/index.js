@@ -14,7 +14,7 @@ const client = new MongoClient(uri, {
 });
 
 async function run() {
-  await seedDb().catch(console.dir);
+  await seedDb().catch(console.dir); // Run seeder before executing code
 
   try {
     // Connect to client

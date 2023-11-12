@@ -8,6 +8,7 @@ async function getCountUsers() {
       .json(),
   };
 }
+
 // Add total from service with 20
 async function computeResult() {
   const result = await getCountUsers();

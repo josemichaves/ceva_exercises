@@ -13,8 +13,8 @@ const client = new MongoClient(uri, {
   },
 });
 
-async function run(param = "josemi") {
-  await seedDb().catch(console.dir);
+async function run(param = "doe") {
+  await seedDb().catch(console.dir); // Run seeder before executing code
 
   try {
     // Connect to client

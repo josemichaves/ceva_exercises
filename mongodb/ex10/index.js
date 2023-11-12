@@ -13,10 +13,8 @@ const client = new MongoClient(uri, {
   },
 });
 
-async function run() {
-  await seedDb().catch(console.dir);
-
-  const _id = "5cd96d3ed5d3e20029627d4a";
+async function run(_id) {
+  await seedDb().catch(console.dir); // Run seeder before executing code
 
   try {
     // Connect to client
@@ -49,4 +47,4 @@ async function run() {
   }
 }
 // Run the code
-run().catch(console.dir);
+run("5cd96d3ed5d3e20029627d4a").catch(console.dir);
