@@ -218,24 +218,27 @@ The form should return data in this format
 ```
 
 ```typescript
-}
 @Component({
     selector: 'app-user-form',
     template: `
-<form>
-<input type="text" placeholder="email">
-<input type="text" placeholder="name">
-<input type="date" placeholder="birthday">
-<input type="number" placeholder="zip">
-<input type="text" placeholder="city">
-</form>
+      <form>
+      <input type="text" placeholder="email">
+      <input type="text" placeholder="name">
+      <input type="date" placeholder="birthday">
+      <input type="number" placeholder="zip">
+      <input type="text" placeholder="city">
+      </form>
 `
 })
 export class AppUserForm {
     @Output()
     event = new EventEmitter < {
-        email: string;name: string;birthday: Date;address: {
-            zip: number;city: string;
+        email: string;
+        name: string;
+        birthday: Date;
+        address: {
+            zip: number;
+            city: string;
         };
     } > ;
     constructor(
