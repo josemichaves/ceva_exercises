@@ -22,7 +22,7 @@ async function computeResult() {
 ```
 
 Yes, there’s a problem with this piece of code, the problem resides when we call `getCountUsers` to get the users count, we’re not awaiting the result of the promise, thus not resolving it, it will return an undefined.
-In order to make this piece of code work, we need to await the result: [Exercise 1](https://github.com/josemichaves/ceva_exercises/blob/master/NodeJs/ex1/index.js)
+In order to make this piece of code work, we need to await the result: [Exercise 1](https://github.com/josemichaves/ceva_exercises/blob/master/nodejs/ex1/index.js)
 
 ### Exercise 2: Is there a problem? (2 points)
 
@@ -50,7 +50,7 @@ function getPlurial() {
 
 Yes, again we have some problems with the usage of async/await, in this case the main problem is that in the function `getPlurial` the result is returned immediately, without waiting for `getTotalVehicles` to resolve, which makes `r` not having a value, and returning always `many` as the value will be undefined, and undefined is not a number, so neither the if will be evaluated.
 
-In order to make this piece of code work as expected, we need to convert `getTotalVehicles` into an async/await function: [Exercise 2](https://github.com/josemichaves/ceva_exercises/blob/master/NodeJs/ex2/index.js)
+In order to make this piece of code work as expected, we need to convert `getTotalVehicles` into an async/await function: [Exercise 2](https://github.com/josemichaves/ceva_exercises/blob/master/nodejs/ex2/index.js)
 
 ### Exercise 3: Unit test (2 points)
 
@@ -83,7 +83,7 @@ test('1. test', async function () {
 });
 ```
 
-Here are the unit tests: [Exercise 3](https://github.com/josemichaves/ceva_exercises/blob/master/NodeJs/ex3/__tests__/index.spec.ts)
+Here are the unit tests: [Exercise 3](https://github.com/josemichaves/ceva_exercises/blob/master/nodejs/ex3/__tests__/index.spec.ts)
 
 \*Note:
 
