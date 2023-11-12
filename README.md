@@ -206,7 +206,7 @@ We can use the observable `map` to take an observable, in this case the users ar
 Complete and modify AppUserForm class to use Angular Reactive Forms. Add a button to submit.
 The form should return data in this format
 
-```json
+```typescript
 {
   email: string; // mandatory, must be a email
   name: string; // mandatory, max 128 characters
