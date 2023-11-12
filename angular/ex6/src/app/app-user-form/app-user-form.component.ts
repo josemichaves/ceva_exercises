@@ -33,8 +33,8 @@ export class AppUserFormComponent {
       name: ['', [Validators.required, Validators.maxLength(128)]],
       birthday: [null, [this.dateValidator]], // Call custom validator
       address: this.formBuilder.group({
-        zip: ['', [Validators.required, Validators.pattern('^[A-Za-z ]+$')]], // Regex to only accept only alpha uppercase and lower and space
-        city: ['', [Validators.required]],
+        zip: ['', [Validators.required]], // Regex to only accept only alpha uppercase and lower and space
+        city: ['', [Validators.required, Validators.pattern('^[A-Za-z ]*$')]],
       }),
     });
   }
@@ -42,7 +42,7 @@ export class AppUserFormComponent {
   doSubmit(): void {
     // check if date is valid for emitting
     if (this.userForm.valid) {
-      console.log('valid, emitting');
+      alert('All fields are valid, emitting event');
       this.event.emit({
         email: this.userForm.get('email')?.value,
         name: this.userForm.get('name')?.value,
@@ -52,13 +52,16 @@ export class AppUserFormComponent {
           city: this.userForm.get('address.city')?.value,
         },
       });
+    } else {
+      alert('Something is wrong, check the fields');
     }
   }
 
-  dateValidator(control: FormControl): { isValidDate: boolean } {
-    return {
-      isValidDate:
-        Date.parse(new Date().toDateString()) > Date.parse(control.value), // Parse both dates to timestamp, if provided is lower than today, means is valid date
-    };
+  dateValidator(input: FormControl): any {
+    return Date.parse(new Date().toDateString()) > Date.parse(input.value)
+      ? null
+      : {
+          dateError: 'Date must be before today',
+        };
   }
 }

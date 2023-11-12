@@ -7,8 +7,18 @@
       formControlName="email"
       class="form-control"
       placeholder="Enter email"
+      required
     />
-
+    <div
+      *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
+    >
+      <div *ngIf="userForm.get('email')?.errors?.['required']">
+        <p class="text-danger">This field is required</p>
+      </div>
+      <div *ngIf="userForm.get('email')?.errors?.['email']" class="text-danger">
+        <p class="text-danger">Please enter a valid email address.</p>
+      </div>
+    </div>
     <label for="name" type="text">Name:</label>
     <input
       type="text"
@@ -17,7 +27,17 @@
       class="form-control"
       placeholder="Enter name"
     />
-
+    <div *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched">
+      <div *ngIf="userForm.get('name')?.errors?.['required']">
+        <p class="text-danger">This field is required</p>
+      </div>
+      <div
+        *ngIf="userForm.get('name')?.hasError('maxlength')"
+        class="text-danger"
+      >
+        <p class="text-danger">Your name should be less than 128 characters</p>
+      </div>
+    </div>
     <label for="birthday" type="date">Birthday:</label>
     <input
       type="date"
@@ -26,6 +46,23 @@
       class="form-control"
       placeholder="Enter birthday"
     />
+    <div
+      *ngIf="
+        userForm.get('birthday')?.invalid && userForm.get('birthday')?.touched
+      "
+    >
+      <div
+        *ngIf="userForm.get('birthday')?.errors?.['required'] && !userForm.get('birtdhay')?.dirty"
+      >
+        <p class="text-danger">This field is required</p>
+      </div>
+      <div
+        *ngIf="userForm.get('birthday')?.hasError('dateError')"
+        class="text-danger"
+      >
+        <p class="text-danger">Date must be before today</p>
+      </div>
+    </div>
 
     <div formGroupName="address">
       <label for="zip" type="text">Zip:</label>
@@ -36,6 +73,16 @@
         class="form-control"
         placeholder="Enter zip code"
       />
+      <div
+        *ngIf="
+          userForm.get('address.zip')?.invalid &&
+          userForm.get('address.zip')?.touched
+        "
+      >
+        <div *ngIf="userForm.get('address.zip')?.errors?.['required']">
+          <p class="text-danger">This field is required</p>
+        </div>
+      </div>
 
       <label for="city" type="text">City:</label>
       <input
@@ -45,8 +92,25 @@
         class="form-control"
         placeholder="Enter city"
       />
+      <div
+        *ngIf="
+          userForm.get('address.city')?.invalid &&
+          userForm.get('address.city')?.touched
+        "
+      >
+        <div *ngIf="userForm.get('address.city')?.errors?.['required']">
+          <p class="text-danger">This field is required</p>
+        </div>
+        <div
+          *ngIf="userForm.get('address.city')?.hasError('pattern')"
+          class="text-danger"
+        >
+          <p class="text-danger">
+            Text can only contain alphanumeric characters and spaces
+          </p>
+        </div>
+      </div>
     </div>
-
-    <button type="submit" class="btn btn-primary mt-3">Submit</button>
   </div>
+  <button type="submit" class="btn btn-primary mt-3">Submit</button>
 </form>
