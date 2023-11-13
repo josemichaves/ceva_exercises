@@ -13,7 +13,7 @@ const client = new MongoClient(uri, {
   },
 });
 
-async function run(param = "doe") {
+async function run(param = "jo") {
   await seedDb().catch(console.dir); // Run seeder before executing code
 
   try {
@@ -27,22 +27,30 @@ async function run(param = "doe") {
 
     const result = await collection
       .find({
-        $or: [
+        $and: [
           {
-            email: param, // Exact match
-            first_name: {
-              $regex: "^" + param,
-              $options: "i",
-            }, // Use regex to check starts with
-            last_name: {
-              $regex: "^" + param,
-              $options: "i",
+            last_connection_date: {
+              $gte: Date.parse(
+                date.toISOString(date.setMonth(date.getMonth() - 5))
+              ),
             },
           },
           {
-            last_connection_date: {
-              $lte: date.toISOString(date.setMonth(date.getMonth() - 6)), // Last connection date should be less than today minus 6 months
-            },
+            $or: [
+              { email: param },
+              {
+                first_name: {
+                  $regex: "^" + param,
+                  $options: "i",
+                },
+              },
+              {
+                last_name: {
+                  $regex: "^" + param,
+                  $options: "i",
+                },
+              },
+            ],
           },
         ],
       })
@@ -57,4 +65,4 @@ async function run(param = "doe") {
 }
 
 // Run the code
-run().catch(console.dir());
+run();

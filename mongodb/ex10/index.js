@@ -23,6 +23,11 @@ async function run(_id) {
     // Select collection
     const collection = client.db("ex10").collection("users");
 
+    console.log(
+      `Initial state of Document _id ${_id} updated. \nNew version of document:`,
+      await getRecord(collection, _id)
+    );
+
     // Update date, address and push new role into document
     await collection.updateOne(
       {
@@ -41,10 +46,20 @@ async function run(_id) {
         },
       }
     );
+
+    console.log(
+      `Document with _id ${_id} updated. \nNew version of document:`,
+      await getRecord(collection, _id)
+    );
   } finally {
     await client.close();
-    console.log(`Document with _id ${_id} updated succesfully`);
   }
+}
+
+async function getRecord(collection, _id) {
+  return await collection.findOne({
+    _id,
+  });
 }
 // Run the code
 run("5cd96d3ed5d3e20029627d4a").catch(console.dir);

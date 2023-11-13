@@ -31,7 +31,6 @@ module.exports.seedDb = async function seedDb() {
       email: 1,
       first_name: 1,
       last_name: 1,
-      roles: 0,
       last_connection_date: 1,
     });
 
@@ -44,9 +43,9 @@ module.exports.seedDb = async function seedDb() {
       first_name: "John",
       last_name: "Doe",
       roles: [Math.random() < 0.5 ? "admin" : "user"],
-      last_connection_date: date.toISOString(
+      last_connection_date: Date.parse(date.toISOString(
         date.setMonth(date.getMonth() - 3)
-      ), //Set last connection date, 3 months prior this month,
+      )), //Set last connection date, 3 months prior this month,
     });
   } finally {
     await client.close();

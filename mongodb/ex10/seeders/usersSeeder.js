@@ -40,8 +40,8 @@ module.exports.seedDb = async function seedDb() {
       roles: roles,
       last_connection_date: faker.date.recent(),
       addresses: {
-        zip: faker.address.zipCode,
-        city: faker.address.cityName,
+        zip: faker.address.zipCode(),
+        city: faker.address.cityName(),
       },
     });
   } finally {
