@@ -85,9 +85,9 @@ test('1. test', async function () {
 
 Here are the unit tests: [Exercise 3](https://github.com/josemichaves/ceva_exercises/blob/master/nodejs/ex3/__tests__/index.spec.ts)
 
-\*Note:
+\* Note:
 
-Function was not working as expected with single-letter words, I’ve fixed it, it was a matter of when we check the length of the word, we should check if the length is 1 or equal, and then will work.\*
+Function was not working as expected with single-letter words, I’ve fixed it, it was a matter of when we check the length of the word, we should check if the length is 1 or equal, and then will work. \*
 
 Before:
 
