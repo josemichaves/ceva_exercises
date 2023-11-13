@@ -24,7 +24,7 @@ async function run(_id) {
     const collection = client.db("ex10").collection("users");
 
     console.log(
-      `Initial state of Document _id ${_id} updated. \nNew version of document:`,
+      `Initial state of Document _id ${_id}:\n`,
       await getRecord(collection, _id)
     );
 
@@ -48,7 +48,7 @@ async function run(_id) {
     );
 
     console.log(
-      `Document with _id ${_id} updated. \nNew version of document:`,
+      `Document with _id ${_id} updated. \nNew version of document:\n`,
       await getRecord(collection, _id)
     );
   } finally {
