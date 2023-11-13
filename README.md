@@ -1,3 +1,4 @@
+
 # Exercises
 
 ## NodeJs
@@ -85,9 +86,8 @@ test('1. test', async function () {
 
 Here are the unit tests: [Exercise 3](https://github.com/josemichaves/ceva_exercises/blob/master/nodejs/ex3/__tests__/index.spec.ts)
 
-\* Note:
-
-Function was not working as expected with single-letter words, I’ve fixed it, it was a matter of when we check the length of the word, we should check if the length is 1 or equal, and then will work. \*
+*Note:
+Function was not working as expected with single-letter words, I’ve fixed it, it was a matter of when we check the length of the word, we should check if the length is 1 or equal, and then will work.*
 
 Before:
 
@@ -117,7 +117,7 @@ return name
 
 ## Angular
 
-### Exercise 4 (5 points)
+### Exercise 4: Is there a problem and improve the code (5 points)
 
 ```TypeScript
 @Component({
@@ -167,7 +167,7 @@ Therefore, every 60 seconds we'll emit the value of the Observable, except if th
 
 [Exercice 4](https://github.com/josemichaves/ceva_exercises/blob/master/angular/ex4/src/app/app-users/app-users.component.ts)
 
-### Exercise 5 (5 points)
+### Exercise 5: Improve performance(5 points)
 
 ```TypeScript
 @Component({
@@ -195,16 +195,18 @@ export class AppUsers {
 }
 ```
 
-The main performance problem of this component is that getCapitalizeFirstWord` is called every render, which is not optimal at all, as this array of values if eligible to be static as possible. To fix this problem we can use the cache.
+The main performance problem of this component is that `getCapitalizeFirstWord()` is called every render, which is not optimal at all, as this array of values if eligible to be static as possible. To fix this problem we can use the cache.
 
 We can use the observable `map` to take an observable, in this case the users array, and then in every render, we check if we have available this data in the map, if we have it, we simply return this data, if not, we execute the function to capitalize the names, and then store it on the map.
 
 [Exercise 5](https://github.com/josemichaves/ceva_exercises/blob/master/angular/ex5/src/app/app-users/app-users.component.ts)
 
-## Exercice 6: Forms (8 points)
+### Exercise 6: Forms (8 points)
 
-Complete and modify AppUserForm class to use Angular Reactive Forms. Add a button to submit.
-The form should return data in this format
+Complete and modify AppUserForm class to use Angular Reactive Forms. 
+Add a button to submit.
+
+The form should return data in this format:
 
 ```TypeScript
 {
@@ -266,27 +268,40 @@ Recreate this card.
 
 MongoDb collection users with schema
 
-`TypeScript{email: string;first_name: string;last_name: string;roles: string[];last_connection_date: Date;}`
+```TypeScript
+{
+	email: string;
+	first_name: string;
+	last_name: string;
+	roles: string[];
+	last_connection_date: Date;
+}
+```
 
-Complete the query, you have a variable that contains a piece of text to search for. Search by exact email, starts with first or last name and only users logged in
-
-for 6 months
+Complete the query, you have a variable that contains a piece of text to search for. Search by exact email, starts with first or last name and only users logged in for 6 months.
 
 `mongodbdb.collections('users').find(...);`
 
 [Exercise 8](https://github.com/josemichaves/ceva_exercises/blob/master/mongodb/ex8/index.js)
 
 - **What should be added to the collection so that the query is not slow?**
-
 We should add indexes to our database, at the fields that we're going to search by, which will provide a better performance of the query. In this specific case, the most important field is `last_connection_date`, because the filter that we're using (less than 6 months) we can fetch a lot of records with this filter, so we need this field to be optimized as possible.
 
 ### Exercise 9: MongoDb aggregate (5 points)
 
 MongoDb collection users with schema
 
-`TypeScript{email: string;first_name: string;last_name: string;roles: string[];last_connection_date: Date;}`
+```TypeScript
+{
+	email: string;
+	first_name: string;
+	last_name: string;
+	roles: string[];
+	last_connection_date: Date;
+}
+```
 
-Complete the aggregation so that it sends user emails by role `({_id: 'role', users: [email,...]})`
+Complete the aggregation so that it sends user emails by role `({_id: 'role', users: [email,...]})`.
 
 `dynamodbdb.collections('users').aggregate(...);`
 
@@ -296,7 +311,19 @@ Complete the aggregation so that it sends user emails by role `({_id: 'role', us
 
 MongoDb collection users with schema
 
-`TypeScript{email: string;first_name: string;last_name: string;roles: string[];last_connection_date: Date;addresses: {zip: number;city: string;}[]:}`
+```TypeScript
+{
+	email: string;
+	first_name: string;
+	last_name: string;
+	roles: string[];
+	last_connection_date: Date;
+	addresses: {
+		zip: number;
+		city: string;
+		}[];
+}
+```
 
 Update document `ObjectId("5cd96d3ed5d3e20029627d4a")` , modify only last_connection_date with **current date**:
 
